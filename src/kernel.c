@@ -1,6 +1,7 @@
 #include "kernel.h"
 #include <stddef.h>
 #include <stdint.h>
+#include "idt/idt.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -61,8 +62,13 @@ void print(const char* word) {
     }
 }
 
+extern void problem();
+
 void kernel_main() {
     terminal_initialize();
     print("Hello World!\n");
     print("I just made a terminal");
+
+    idt_init();
+    problem();
 }
