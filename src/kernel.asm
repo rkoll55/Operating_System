@@ -21,6 +21,15 @@ _start:
 	or al, 2
 	out 0x92, al
 
+    ;remap master PIC
+    mov al, 00010001b
+    out 0x20, al ;master pic
+    mov al, 0x20 ; interrupt 20 for master
+    out 0x21, al
+    mov al, 00000001b
+    out 0x21, al
+    ; end of remapping
+
 	call kernel_main
 	jmp $
 

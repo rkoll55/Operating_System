@@ -71,6 +71,4 @@ void kernel_main() {
     print("I just made a terminal");
 
     idt_init();
-    //problem();
-    outb(0x60, 0xff);
 }
