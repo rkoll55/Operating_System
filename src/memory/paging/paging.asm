@@ -3,6 +3,7 @@
 section .asm
 
 global paging_load_directory
+global enable_paging
 
 paging_load_directory:
     push ebp
@@ -19,3 +20,4 @@ enable_paging:
     or eax, 0x80000000
     mov cr0, eax
     pop ebp
+    ret
