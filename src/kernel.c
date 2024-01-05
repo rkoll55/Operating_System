@@ -6,6 +6,8 @@
 #include "memory/heap/kheap.h"
 #include "memory/paging/paging.h"
 #include "disk/disk.h"
+#include "fs/pparser.h"
+#include "string/string.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -45,14 +47,6 @@ void terminal_initialize() {
     }
 }
 
-// for null terminated strings only
-size_t strlen(const char* str) {
-    size_t count = 0;
-    while (str[count]) {
-        count++;
-    }
-    return count;
-}
 
 void newLine() {
     terminal_row++;
@@ -95,4 +89,10 @@ void kernel_main() {
     // enable interrupts
 
     enable_interrupts();
+
+    struct path_root* root_path = pathparser_parse("0:/bin/shell.bin", NULL);
+
+    if (root_path) {
+
+    }
 }
