@@ -4,11 +4,31 @@ BITS 16
 CODE_SEG equ gdt_code - gdt_start
 DATA_SEG equ gdt_data - gdt_start
 
-_start:
-	jmp short start
-	nop
+jmp short start
+nop
 
-times 33 db 0
+; FAT16
+OEMIdentifier       db 'RCOS    '
+BytesPerSector      dw 0x200  ;512 bytes per sector
+SectorsPerCluster   db 0x80
+ReservedSectors     dw 200    ;Space for the kernel
+FATCopies           db 0x02   ;original files and copies
+RootDirEntries      dw 0x40 
+NumSectors          dw 0x00 ;not used
+MediaType           db 0xF8
+SectorsPerFat       dw 0x100
+SectorsPerTrack     dw 0x20
+NumberOfHeads       dw 0x40 
+HiddenSectors       dd 0x00
+SectorsBig          dd 0x773594
+
+DriverNumber        db 0x80
+WinNTBit            db 0x00
+Signature           db 0x29
+VolumeID            db 0xD105
+VolumeIDString      db 'RCOS BOOT  '
+SystemIDString      db 'FAT16   '
+
 
 start:
 	jmp 0:step2
